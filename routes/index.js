@@ -1,4 +1,6 @@
 var express = require('express');
+//var crypto = require('crypto');
+//var hash = crypto.createHash('sha1','abcdefg');
 const user = require('../database/users');
 const USER = user.model;
 const USESCHEMA = user.schema;
@@ -13,9 +15,11 @@ router.get('/', function(req, res, next) {
 router.post('/user', async(req, res, next) => {
   var params = req.body;
   params["registerDate"] = new Date();
+  //var hash_new = hash.update(params["password"]).digest('hex');
+  //params["password"]=format;
   var user = new USER(params);
   var result = await user.save();
-  res.status(200).json(result)
+  res.status(200).json(result);
 });
 
 router.get("/user", async(req, res) => {
